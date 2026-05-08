@@ -1,0 +1,178 @@
+{
+    "canvas": {
+        "width": 256,
+        "height": 256
+    },
+    "textures": [
+        {
+            "x": 0,
+            "y": 0,
+            "w": 212,
+            "h": 73,
+            "clut_global_idx": 16,
+            "name": "tex_0",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 212,
+            "y": 0,
+            "w": 26,
+            "h": 32,
+            "clut_global_idx": 5,
+            "name": "tex_1",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 212,
+            "y": 32,
+            "w": 26,
+            "h": 32,
+            "clut_global_idx": 6,
+            "name": "tex_2",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 214,
+            "y": 193,
+            "w": 26,
+            "h": 32,
+            "clut_global_idx": 0,
+            "name": "tex_3",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 188,
+            "y": 193,
+            "w": 26,
+            "h": 32,
+            "clut_global_idx": 7,
+            "name": "tex_4",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 98,
+            "y": 193,
+            "w": 90,
+            "h": 27,
+            "clut_global_idx": 4,
+            "name": "tex_5",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 0,
+            "y": 73,
+            "w": 160,
+            "h": 20,
+            "clut_global_idx": 12,
+            "name": "tex_6",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 0,
+            "y": 93,
+            "w": 156,
+            "h": 20,
+            "clut_global_idx": 13,
+            "name": "tex_7",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 0,
+            "y": 113,
+            "w": 156,
+            "h": 20,
+            "clut_global_idx": 14,
+            "name": "tex_8",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 0,
+            "y": 133,
+            "w": 156,
+            "h": 20,
+            "clut_global_idx": 17,
+            "name": "tex_9",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 0,
+            "y": 153,
+            "w": 156,
+            "h": 20,
+            "clut_global_idx": 18,
+            "name": "tex_10",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 0,
+            "y": 173,
+            "w": 156,
+            "h": 20,
+            "clut_global_idx": 19,
+            "name": "tex_11",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 0,
+            "y": 193,
+            "w": 98,
+            "h": 25,
+            "clut_global_idx": 11,
+            "name": "tex_12",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 156,
+            "y": 168,
+            "w": 98,
+            "h": 25,
+            "clut_global_idx": 10,
+            "name": "tex_13",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 156,
+            "y": 143,
+            "w": 98,
+            "h": 25,
+            "clut_global_idx": 9,
+            "name": "tex_14",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 156,
+            "y": 118,
+            "w": 98,
+            "h": 25,
+            "clut_global_idx": 8,
+            "name": "tex_15",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 156,
+            "y": 93,
+            "w": 98,
+            "h": 25,
+            "clut_global_idx": 10,
+            "name": "tex_16",
+            "locked": false,
+            "black_bg": true
+        }
+    ]
+}

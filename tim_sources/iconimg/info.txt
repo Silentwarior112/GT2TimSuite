@@ -1,0 +1,3 @@
+iconimg.dat is a headerless file normally.
+When building, target 4bpp GT2 Tim Sheet.
+After building, delete the first twenty (0x14) bytes in a hex editor to prepare it for the game.
