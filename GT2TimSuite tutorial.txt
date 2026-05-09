@@ -1,0 +1,252 @@
+GT2TimSuite usage tutorial by Silentwarior112
+
+This will guide you through how to use the tool, and educate you
+on how tim files work for Gran Turismo 2 (other games likely apply).
+
+The example file we will use for this guide is Gran Turismo 2's `game_status_files`
+file. It holds most of the textures used in the in-race HUD.
+
+1. game_status_files is compressed with gzip (.gz) so we have to extract it out of the
+archive. 7zip is perfect for this.
+
+2. Now we have the `game_status_files` file. This is actually a multi-file package,
+so we will need to split it up into each individual file.
+- Open GT2TimSuite. Click the button in the top left "Tim / GT2 Sheet / Multi-Tim".
+Load `game_status_files`. The tool will detect that it is
+a multi-tim package and let you know if you want to continue. Select OK and set the
+destination output folder for it.
+
+3. Now we have a folder containing the component files that made up `game_status_files`.
+There are 11 files:
+The first file is the main Texture sheet that contains:
+6 slots for tachometer backings,
+the speed numbers, gear numbers, mph / km/h text, turbo ticks, turbo backing, and more.
+The rest of the files are the individual tachometer backings for each RPM graduation.
+
+4. The important information about this package of files:
+4a. The main sheet is what we refer to as a "Nonstandard GT2 Texture sheet", because of its binary structure
+and its maximum possible colors (Bit depth) per section of the sheet (CLUTs). The bit depth for these is 4bpp, so each CLUT is
+limited to their own 16-color palette. Each CLUT can have any combination of colors as long as there are only 16
+unique colors or less. Transparency in colors is also fully supported, which will be explained later.
+The last technical bit about these nonstandard ones is that their color palette data is actually located inside
+the visual image itself, which saves a little space. This results in visual garbage at the bottom of the image, this is normal
+for these.
+Nonstandard GT2 Texture sheets are different from what we refer to as "Standard Tim Files", which are the standard
+binary format for PS1 textures.
+
+4b. The individual tachometer textures are standard 4bpp tim files.
+(Standard tims have 3 types: 4bpp (16 colors per CLUT), 8bpp (256 Colors per CLUT), and TrueColor (unlimited colors for the whole image)
+
+4c. The tachometer textures have an important detail to know: Both the main sheet, AND the individual one(s)
+MUST BOTH be edited identically in order to achieve a proper result.
+The game fetches the color palette for the tachometer texture from the sheet, but fetches the pixel indexes from the
+individual texture.
+
+4d. Another important detail is that texture sheets do not contain any information about
+which color palette is assigned to which CLUT.
+What this means is that you have to manually figure out which section of the sheet corresponds to which
+color palette index (the palette's slot number. For example, index 0 would be the first slot on GT2TimSuite's Palette Window), and
+a lot of times it isn't obvious which palette goes to which CLUT.
+
+If you get these wrong, the palettes for each image will be messed up. That information lies inside the game engine,
+so we have to abide by whatever palette index (slot) was originally assigned to which CLUT.
+Sometimes there are multiple identical palettes. This indicates that there are multiple sections of the image that use
+the same color palette. For example, 1st through 6th in the HUD. We would then know that those are actually 6 separate CLUTs,
+not one long strip using one palette.
+
+Speaking of giant sections with multiple images that only use one palette, the six tachometer slots in the sheet are like this.
+While they are technically 6 separate things, we can see in the tool's Palette window that there's only one palette slot for them.
+So in that case we would draw one box around all 6 tachometer images.
+
+Another situation is multiple sections of the image that use one CLUT. In those, cases one box must be drawn to cover both sections.
+Sometimes it exports cleanly, sometimes it will not. If it's not clean, you will have to edit the exported PNG and delete the unintended
+graphics. Once it has been cleaned they will convert back to Tim properly. This is rare but does happen.
+
+The last situation you might encounter is two seperate CLUTs occupying the same location and size. This happens in game_status_files
+with the B A bars. Once clut is for the BA text and the grey bar backings, the other is for the bar fills.
+
+
+5. Now let's actually use GT2TimSuite!
+5a. Inside the folder containing the extracted files from the multi-tim package, load the first file at the top,
+this is the HUD main sheet.
+At first it won't look right. This is because the nonstandard GT2 sheet format also has no information about 
+how many CLUTs there are or where that data actually starts.
+So, in the Palette Window, we have to adjust the scan range of the CLUT search.
+Each increment increases the scan range by 4 palettes.
+There's no exact science to it, but usually it's pretty obvious when you've landed on the correct value.
+For the tutorial, the correct number is 6.
+
+5b. We can now see everything in the sheet clearly, but most everything appears off.
+This is where you have to figure out which areas of the sheet correspond to which palette.
+The main thing to maintain is the amount of CLUTs.
+In this case, there are populated palettes from 0-21 (a total of 22).
+That means you definitely need to draw 22 boxes and assign all 22 palettes to a box.
+Sometimes there will be blank palettes in between the populated palettes, you can skip these as the tool will
+automatically reproduce them when you build the tim.
+
+If you're struggling to figure out which palette is for which thing, use this method to find them out:
+Re-open the original file, then use "Load CLUT config" to load your JSON file.
+This will restore the CLUT view, so you can make changes. Then export again to
+save the new configuration. Run the game, check for changes.
+
+As you change up the palettes, keep a list ready to mark down what's what.
+
+For the tutorial, the palette slot list for this sheet is:
+0 - Tachs (all 6 of them in one box) | 240x160
+1 - Speed digits 0123456789 | 16x160
+2 - km/h | 40x16
+3 - mph  | 40x16
+4 - 0123456789R/ | 192x16
+5 - 1st | 36x24
+6 - 2nd | 36x24
+7 - 3rd | 36x24
+8 - 4th | 36x24
+9 - 5th | 36x24
+10 - 6th | 36x24
+11 - turbo ticks | 28x28
+12 - turbo backing | 28x28
+13 - SEIKO | 60x14
+14 - Official Timer | 60x14
+15 - B A and bar backings (use black background to see) | 24x32
+16 - B A outline (only example of two CLUTs on top of eachother) | 24x32
+17 - TireL (the one next to km/h) | 14x14
+18 - Left (underneath mph) | 16x32
+19 - Right (underneath 6th, to the left of the B bar) | 16x24 (This one is important to get the box position right. Leave 2px of space on the left side of the arrow.)
+20 - Tire wear (Underneath 6th, next to OFFICIAL TIMER) | 16x24
+21 - TireR (the one underneath SEIKO) | 14x14
+
+
+5c. Draw the first box. It will be a 240x160 box starting from the top left corner of the screen.
+Then on the palette window, make sure palette 0 is selected, then right-click inside the green box and
+click "Set palette to selected". That section of the image is now set to palette 0.
+You can also use the arrow keys up and down to set the palette of a box while the mouse is hovered over it.
+Right click it again, and click Toggle lock. This will lock the size so that you don't accidentally mess it up.
+When locked, the box will be orange. Green is unlocked.
+Right click it again, and click Rename. This will let you label the section to whatever you want.
+It is recommended to include the palette index, and the desired label. For example, on the 6 tachs, call it 00_tachs.
+00 is for the palette it's assigned to, and tachs is the human label so you know what it is.
+Right click it again, and click Toggle Black Background. This will do as the name suggests. This is only for viewing purposes,
+this does not affect the outcome of how it gets exported or anything.
+The last right-click function is Make Copy. You can copy a box and then drag it to the next section, which saves time
+when you have multiple sections of the same size.
+
+There are 21 more boxes to draw. Use the above list to draw & assign the rest.
+When it comes to the exact box sizes and locations, it doesn't matter as long as you're capturing the images inside the box.
+However there will be some cases where the box position does matter (in terms of visual data having transparent space around it)
+In those cases you might need to adjust it slightly to fix issues. You might see solid black surrounding something that
+normally should be surrounded by transparency, that's an issue with not enough transparent space around it.
+
+
+6. Once you have all 22 boxes setup and palettes assigned, export it.
+Click Export to PNG(s).
+You will be prompted to select the export mode. For sheets, select
+"Sheet Project Folder". This converts each box drawn into their own separate
+PNG images to be edited individually, and outputs a JSON file that contains
+the necessary information to construct a custom texture sheet.
+
+7. Before we continue, we need to also modify the individual tachometer image, remember?
+Depending on which tachometer graduation you want to modify (7k, 8k, or 9k is recommended to start with)
+Load that file. The second file in the list is 6k, going up RPM graduations each file down.
+Once it's loaded, you won't need to do anything but export it immediately, as this is a standard tim with a single palette!
+Much easier. Click Export to PNG(s), this time selecting "Single PNG" as this is just a single image.
+Or, you can use "Bulk Tim to PNG" on all of them.
+
+8. Now for the fun part. We can modify the PNG images, then convert them back into
+the necessary format.
+
+Modify the 6 tachometers image.
+Once your masterpiece is done, save the PNG image.
+Don't forget to copy it over to the individual(s) as well.
+
+Remember, this is a 4bpp-limited texture sheet.
+Before you can create the custom texture sheet, all of your modified images
+need to be reduced to 16 unique colors to fit inside the 4bpp limitation.
+This is called quantizing.
+
+There's a pleathura of methods out there to quantize images.
+The thing with quantizing is the quality varies a lot depending on
+what you're using as your quantizing tool.
+
+The recommended tool to properly quantize images AND preserve the quality
+is a program aptly named "Color Quantizer" by x128.
+You can find it here: https://x128.ho.ua/color-quantizer.html
+
+There's a specific reason why the 6 tachs image is all 6 in one CLUT box.
+Couldn't you just make 6 boxes and assign the same palette?
+
+No. Because it was one CLUT, the tool needs to read that entire area and
+produce the single palette and pixel indexes in one go. Otherwise, only one tach would
+look right. The editing reason specifically comes down to quantization though.
+When they're all in one image, you can quantize them all at once.
+This is super important, since the sheet defines the palette, but the pixel indexes
+come from a different source, the individual.
+Since the sheet uses one palette for all 10 tachs (not just the 6 in the sheet), you can't have any tachs with a different color
+palette. The workflow is an image with all 10 tachs in it, then quantize it, then finally
+copy each to their individual texture. Use the tachs_all.png file for this.
+Why is it like this? It's how the game is able to switch the RPM graduations instantly when switching between different cars
+during a replay. I guess the optimization is that it only needs to change the pixel indexes and that's somehow faster.
+Since switching between cars is an instant transition, speed at all costs is required.
+
+
+9. With the modified and quantized images, we can now create the custom files
+and put them in the game.
+
+In GT2TimSuite, build the target format.
+For the sheet, select "Build 4bpp GT2 Tim Sheet".
+Overwrite the old .tim file.
+For the individuals, select "PNG to Standard Tim"
+then choose 4bpp.
+Overwrite the old .tim file(s).
+
+We now have the modified collection of tim files.
+The next step is to pack the collection into a single
+multi-file package.
+Click "Pack Multi-File".
+Overwrite the old `game_status_files` file,
+or make a new one of you want. Just make sure it is named `game_status_files` with no file extension.
+
+We now have the modified `game_status_files` file.
+The next step is to zip the file.
+Using 7zip, open the old game_status_files.gz archive. (Right click, open archive)
+drag and drop the new `game_status_files` file into the archive. Wait a couple seconds for it to finish.
+Check the date modified in file explorer, it should now say the current time and date.
+
+If your new game_status_files.gz wasn't already in the arcade folder, move or copy/paste it there now, overwrite the old one.
+
+The game volume is now ready to be packed. Pack the VOL and then make a new disc image.
+
+Run the game. Check for changes. Hopefully the HUD tachometer is modified with no adverse side effects.
+
+
+
+Black-keying transparency demonstration:
+Even though only 1 bit (either on or off) is given for the transparency information of a color,
+4bpp tim files can still produce 5 bits of transparency resolution for colors.
+How is this possible?
+
+PS1 games use a de-compositing system that looks at a color and inspects the bits first.
+The format is A1B5G5R5, so 5 bits (32 possible states) for red green and blue, and 1 bit (2 possible states) for transparency.
+If it detects that the stp bit (that's the transparency bit) is on, it will process the color differently:
+It simulates as if that color is actually 2 layers: A black background, and a semi-transparent color on top of it.
+It uses a process to decomposite the color back into the semi-transparent color it would have been before it was flattened into one layer.
+There's multiple possible RGBA values that flatten into the same color against a black background, so the priority here is to pick the brightest RGB values
+possible, with the minimum opacity possible.
+
+You can demonstrate this de-compositing by using an image editor.
+
+Create 3 layers: A black background, a fully opaque gray pixel, and an empty layer for now.
+
+Flatten the first 2 layers, then observe the RGB value with the color picker.
+Next, on the other layer, draw a square / pixel, and get to a point where you can adjust the opacity value and watch the transparency
+change as you move the slider around.
+Make the color fully white and then drag the opacity back and forth. Get it as close as you can to where both pixels look like the same color.
+That's how it works.
+
+
+
+
+
+
+
+
+
