@@ -1,9 +1,0 @@
-tiny and big use authored? black pixels manually placed
-in spots where the engine would fail to trim the outline properly or mistake inner gaps
-in letters as transparency
-
-racefont.dat is a headerless file normally.
-When building, target 4bpp standard TIM.
-After building, delete the header with a hex editor to prepare it for the game:
-1. Delete the twelve (0xC) bytes from offset 74 - 7F. Do this first!
-2. Delete the first twenty (0x14) bytes.

@@ -1,0 +1,38 @@
+{
+    "canvas": {
+        "width": 512,
+        "height": 256
+    },
+    "textures": [
+        {
+            "name": "2_big",
+            "x": 0,
+            "y": 0,
+            "w": 512,
+            "h": 256,
+            "clut_global_idx": 2,
+            "locked": true,
+            "black_bg": true
+        },
+        {
+            "name": "0_tiny",
+            "x": 63,
+            "y": 53,
+            "w": 256,
+            "h": 32,
+            "clut_global_idx": 0,
+            "locked": true,
+            "black_bg": false
+        },
+        {
+            "name": "1_normal",
+            "x": 63,
+            "y": 0,
+            "w": 256,
+            "h": 64,
+            "clut_global_idx": 1,
+            "locked": true,
+            "black_bg": false
+        }
+    ]
+}

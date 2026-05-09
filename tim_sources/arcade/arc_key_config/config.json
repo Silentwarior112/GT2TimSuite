@@ -1,0 +1,348 @@
+{
+    "canvas": {
+        "width": 256,
+        "height": 129
+    },
+    "textures": [
+        {
+            "x": 0,
+            "y": 0,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 0,
+            "name": "tex_0",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 32,
+            "y": 0,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 1,
+            "name": "tex_1",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 64,
+            "y": 0,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 2,
+            "name": "tex_2",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 96,
+            "y": 0,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 3,
+            "name": "tex_3",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 128,
+            "y": 0,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 4,
+            "name": "tex_4",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 160,
+            "y": 0,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 5,
+            "name": "tex_5",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 192,
+            "y": 0,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 6,
+            "name": "tex_6",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 224,
+            "y": 0,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 7,
+            "name": "tex_7",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 0,
+            "y": 24,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 8,
+            "name": "tex_8",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 32,
+            "y": 24,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 9,
+            "name": "tex_9",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 64,
+            "y": 24,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 10,
+            "name": "tex_10",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 96,
+            "y": 24,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 11,
+            "name": "tex_11",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 128,
+            "y": 24,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 12,
+            "name": "tex_12",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 160,
+            "y": 24,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 13,
+            "name": "tex_13",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 192,
+            "y": 24,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 14,
+            "name": "tex_14",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 224,
+            "y": 24,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 15,
+            "name": "tex_15",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 0,
+            "y": 48,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 16,
+            "name": "tex_16",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 32,
+            "y": 48,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 17,
+            "name": "tex_17",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 64,
+            "y": 48,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 18,
+            "name": "tex_18",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 96,
+            "y": 48,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 19,
+            "name": "tex_19",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 128,
+            "y": 48,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 20,
+            "name": "tex_20",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 160,
+            "y": 48,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 21,
+            "name": "tex_21",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 192,
+            "y": 48,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 22,
+            "name": "tex_22",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 224,
+            "y": 48,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 23,
+            "name": "tex_23",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 0,
+            "y": 72,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 24,
+            "name": "tex_24",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 32,
+            "y": 72,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 25,
+            "name": "tex_25",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 64,
+            "y": 72,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 26,
+            "name": "tex_26",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 96,
+            "y": 72,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 27,
+            "name": "tex_27",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 128,
+            "y": 72,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 28,
+            "name": "tex_28",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 160,
+            "y": 72,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 29,
+            "name": "tex_29",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 192,
+            "y": 72,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 30,
+            "name": "tex_30",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 224,
+            "y": 72,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 31,
+            "name": "tex_31",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 0,
+            "y": 96,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 32,
+            "name": "tex_32",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 32,
+            "y": 96,
+            "w": 32,
+            "h": 24,
+            "clut_global_idx": 33,
+            "name": "tex_33",
+            "locked": false,
+            "black_bg": false
+        }
+    ]
+}

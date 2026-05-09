@@ -1,0 +1,2 @@
+iconimg.dat is a headerless file normally.
+When building, target 4bpp GT2 Tim Sheet. When prompted select No-header mode.
