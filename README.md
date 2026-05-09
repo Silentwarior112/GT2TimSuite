@@ -6,10 +6,11 @@ This program runs on Python and the Pillow Library.
 </p>
 
 ## Supported Formats:
-- Standard PS1 Single-CLUT TIM Formats: Type 2 TrueColor, Type 8 4bpp, Type 9 8bpp
-- Standard PS1 Multi-CLUT TIM Formats: Type 8 4bpp, Type 9 8bpp
-- Nonstandard Gran Turismo 2 4bpp Texture Sheets
-- Gran Turismo 2 Multi-file containers: TIM packages, generic file packages, and .trp packages
+- Load and generate Standard PS1 Single-CLUT TIM Formats: Type 2 TrueColor, Type 8 4bpp, Type 9 8bpp
+- Load and generate Standard PS1 Multi-CLUT TIM Formats: Type 8 4bpp, Type 9 8bpp
+- Load and generate Nonstandard Gran Turismo 2 4bpp Texture Sheets
+- Extract and pack Gran Turismo 2 Multi-file containers: TIM packages, generic file packages, and .trp packages
+- Generate Headerless verions of Standard Tim and GT2 Sheets
 - #### Standard .PNG files used for source images to convert into TIM
 
 ## Features
