@@ -6,10 +6,6 @@ racefont.dat is a headerless file normally.
 You should build it as a standard 4bpp tim first to check it,
 then when ready to put it into the game, target standard Tim 4bpp headerless.
 
-racefont appears to have an incorrect height value set in its header. (1F8 / 504)
-There are only 0xFFA0 bytes of pixel data, which is even more confusing, becuase that isn't
+racefont appears to have incorrect byte data.
+There are only 0xFFA0 bytes of pixel data, which is confusing, becuase that isn't
 a multiple of 512 pixels. It looks like it's supposed to be 512x256, as that takes 0x10000 bytes.
-Additionally the image data is only using 512x256 pixels, below that is blank.
-512x504 would require 1F800 bytes of pixel data.
-
-The only explanation is that empty space is reserved here for something else?
