@@ -1,0 +1,252 @@
+{
+    "canvas": {
+        "width": 256,
+        "height": 235
+    },
+    "textures": [
+        {
+            "x": 0,
+            "y": 0,
+            "w": 28,
+            "h": 52,
+            "clut_global_idx": 0,
+            "name": "tex_0",
+            "black_bg": false
+        },
+        {
+            "x": 28,
+            "y": 0,
+            "w": 28,
+            "h": 52,
+            "clut_global_idx": 1,
+            "name": "tex_1",
+            "black_bg": false,
+            "locked": false
+        },
+        {
+            "x": 56,
+            "y": 0,
+            "w": 28,
+            "h": 52,
+            "clut_global_idx": 2,
+            "name": "tex_2",
+            "black_bg": false,
+            "locked": false
+        },
+        {
+            "x": 84,
+            "y": 0,
+            "w": 28,
+            "h": 52,
+            "clut_global_idx": 3,
+            "name": "tex_3",
+            "black_bg": false,
+            "locked": false
+        },
+        {
+            "x": 112,
+            "y": 0,
+            "w": 28,
+            "h": 52,
+            "clut_global_idx": 4,
+            "name": "tex_4",
+            "black_bg": false,
+            "locked": false
+        },
+        {
+            "x": 140,
+            "y": 0,
+            "w": 28,
+            "h": 52,
+            "clut_global_idx": 5,
+            "name": "tex_5",
+            "black_bg": false,
+            "locked": false
+        },
+        {
+            "x": 168,
+            "y": 0,
+            "w": 28,
+            "h": 52,
+            "clut_global_idx": 6,
+            "name": "tex_6",
+            "black_bg": false,
+            "locked": false
+        },
+        {
+            "x": 196,
+            "y": 0,
+            "w": 28,
+            "h": 52,
+            "clut_global_idx": 7,
+            "name": "tex_7",
+            "black_bg": false,
+            "locked": false
+        },
+        {
+            "x": 224,
+            "y": 0,
+            "w": 28,
+            "h": 52,
+            "clut_global_idx": 8,
+            "name": "tex_8",
+            "black_bg": false,
+            "locked": false
+        },
+        {
+            "x": 0,
+            "y": 100,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 11,
+            "name": "tex_11",
+            "black_bg": false,
+            "locked": false
+        },
+        {
+            "x": 216,
+            "y": 164,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 24,
+            "name": "tex_24"
+        },
+        {
+            "x": 180,
+            "y": 164,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 23,
+            "name": "tex_23",
+            "locked": false
+        },
+        {
+            "x": 144,
+            "y": 164,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 22,
+            "name": "tex_22",
+            "locked": false
+        },
+        {
+            "x": 108,
+            "y": 164,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 21,
+            "name": "tex_21",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 72,
+            "y": 164,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 20,
+            "name": "tex_20",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 36,
+            "y": 164,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 19,
+            "name": "tex_19",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 0,
+            "y": 164,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 18,
+            "name": "tex_18",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 216,
+            "y": 100,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 17,
+            "name": "tex_17",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 180,
+            "y": 100,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 16,
+            "name": "tex_16",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 144,
+            "y": 100,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 15,
+            "name": "tex_15",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 108,
+            "y": 100,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 14,
+            "name": "tex_14",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 72,
+            "y": 100,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 13,
+            "name": "tex_13",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 36,
+            "y": 100,
+            "w": 36,
+            "h": 64,
+            "clut_global_idx": 12,
+            "name": "tex_12",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 0,
+            "y": 52,
+            "w": 256,
+            "h": 24,
+            "clut_global_idx": 9,
+            "name": "tex_9",
+            "black_bg": false
+        },
+        {
+            "x": 0,
+            "y": 76,
+            "w": 256,
+            "h": 24,
+            "clut_global_idx": 10,
+            "name": "tex_10",
+            "black_bg": false,
+            "locked": false
+        }
+    ]
+}

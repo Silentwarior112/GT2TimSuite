@@ -1,0 +1,3 @@
+title_item contains 5 blank CLUTs at the end. zBLANK_43-47 is assigned CLUT 47 to force producing 5 blank CLUTs when building back.
+
+Build as a GT2 Tim sheet

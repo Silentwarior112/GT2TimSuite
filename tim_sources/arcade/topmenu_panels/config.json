@@ -1,0 +1,77 @@
+{
+    "canvas": {
+        "width": 512,
+        "height": 256
+    },
+    "textures": [
+        {
+            "x": 0,
+            "y": 0,
+            "w": 256,
+            "h": 63,
+            "clut_global_idx": 0,
+            "name": "tex_0",
+            "black_bg": true
+        },
+        {
+            "x": 0,
+            "y": 63,
+            "w": 256,
+            "h": 63,
+            "clut_global_idx": 1,
+            "name": "tex_1",
+            "black_bg": true,
+            "locked": false
+        },
+        {
+            "x": 0,
+            "y": 126,
+            "w": 256,
+            "h": 63,
+            "clut_global_idx": 2,
+            "name": "tex_2",
+            "black_bg": true,
+            "locked": false
+        },
+        {
+            "x": 0,
+            "y": 189,
+            "w": 256,
+            "h": 63,
+            "clut_global_idx": 3,
+            "name": "tex_3",
+            "black_bg": true,
+            "locked": false
+        },
+        {
+            "x": 256,
+            "y": 0,
+            "w": 256,
+            "h": 85,
+            "clut_global_idx": 4,
+            "name": "tex_4",
+            "black_bg": true,
+            "locked": false
+        },
+        {
+            "x": 256,
+            "y": 85,
+            "w": 256,
+            "h": 85,
+            "clut_global_idx": 5,
+            "name": "tex_5",
+            "black_bg": true,
+            "locked": false
+        },
+        {
+            "x": 256,
+            "y": 170,
+            "w": 256,
+            "h": 85,
+            "clut_global_idx": 6,
+            "name": "tex_6",
+            "black_bg": true,
+            "locked": false
+        }
+    ]
+}
