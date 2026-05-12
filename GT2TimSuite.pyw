@@ -194,7 +194,7 @@ class PDTimTool:
         self.pixel_indices, self.all_palettes, self.boxes, self.true_color_data = [], [], [], None
         
         magic = data[0:8]
-        trp_1stTIM = data[4:8]
+        trp_1stTIM = data[4:12]
         trp_filecount = data[0:4]
         if magic == b"\x10\x00\x00\x00\x00\x00\x00\x00": self.parse_pd_16(data); return
         elif magic == b"\x10\x00\x00\x00\x08\x00\x00\x00": self.parse_std_16(data); return
