@@ -1,0 +1,3 @@
+Target 4bpp GT2 Tim Sheet when building
+
+license_tim has 7 blank palettes at the end. zBLANK_9-15 holds those blank spots.

@@ -1,0 +1,35 @@
+{
+    "canvas": {
+        "width": 512,
+        "height": 256
+    },
+    "textures": [
+        {
+            "x": 256,
+            "y": 0,
+            "w": 256,
+            "h": 192,
+            "clut_global_idx": 0,
+            "name": "tex_0",
+            "black_bg": false
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "w": 512,
+            "h": 256,
+            "clut_global_idx": 2,
+            "name": "tex_1",
+            "locked": false,
+            "black_bg": true
+        },
+        {
+            "x": 0,
+            "y": 0,
+            "w": 256,
+            "h": 1,
+            "clut_global_idx": 1,
+            "name": "tex_2"
+        }
+    ]
+}

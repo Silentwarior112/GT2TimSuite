@@ -1,0 +1,57 @@
+{
+    "canvas": {
+        "width": 256,
+        "height": 52
+    },
+    "textures": [
+        {
+            "x": 0,
+            "y": 0,
+            "w": 44,
+            "h": 50,
+            "clut_global_idx": 0,
+            "name": "tex_0",
+            "black_bg": false
+        },
+        {
+            "x": 44,
+            "y": 0,
+            "w": 44,
+            "h": 50,
+            "clut_global_idx": 1,
+            "name": "tex_1",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 88,
+            "y": 0,
+            "w": 44,
+            "h": 50,
+            "clut_global_idx": 2,
+            "name": "tex_2",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 132,
+            "y": 0,
+            "w": 44,
+            "h": 50,
+            "clut_global_idx": 3,
+            "name": "tex_3",
+            "locked": false,
+            "black_bg": false
+        },
+        {
+            "x": 176,
+            "y": 0,
+            "w": 44,
+            "h": 50,
+            "clut_global_idx": 4,
+            "name": "tex_4",
+            "locked": false,
+            "black_bg": false
+        }
+    ]
+}

@@ -1,0 +1,5 @@
+Target 4bpp Standard Tim when building.
+
+The 2nd Clut does not seem to be used for anything.
+
+That clut is assigned to Tex_1, the thin strip at the top.

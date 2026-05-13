@@ -1,0 +1,17 @@
+{
+    "canvas": {
+        "width": 256,
+        "height": 129
+    },
+    "textures": [
+        {
+            "x": 0,
+            "y": 0,
+            "w": 128,
+            "h": 128,
+            "clut_global_idx": 0,
+            "name": "tex_0",
+            "black_bg": true
+        }
+    ]
+}

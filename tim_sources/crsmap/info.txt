@@ -1,0 +1,3 @@
+All textures are 4bpp standard tim files.
+
+Use Bulk PNG to Standard Tim and verify all conversions return 4bpp

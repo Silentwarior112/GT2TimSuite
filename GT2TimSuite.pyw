@@ -78,7 +78,7 @@ class PDTimTool:
         tk.Button(top_bar, text="Build 4bpp GT2 Tim Sheet", command=self.build_gt2_tim_sheet, width=22).pack(side=tk.LEFT, padx=5)
         tk.Button(top_bar, text="Build Standard Tim Sheet", command=self.build_standard_tim_sheet,width=22).pack(side=tk.LEFT, padx=5)
         tk.Button(top_bar, text="Pack Multi-File", command=self.build_multi_tim_container, width=12).pack(side=tk.LEFT, padx=5)
-        tk.Button(top_bar, text="Pack TRP File", command=self.build_trp_container, width=12).pack(side=tk.LEFT, padx=5)
+        tk.Button(top_bar, text="Pack TRP / BSP", command=self.build_trp_container, width=12).pack(side=tk.LEFT, padx=5)
 
         self.content_area = tk.Frame(self.main_container, bg="#202020")
         self.content_area.pack(side=tk.TOP, fill=tk.BOTH, expand=True)
@@ -205,7 +205,7 @@ class PDTimTool:
             num_files = struct.unpack("<I", data[0:4])[0]
             if trp_1stTIM == b"\x10\x00\x00\x00\x02\x00\x00\x00" or trp_1stTIM == b"\x10\x00\x00\x00\x08\x00\x00\x00" or trp_1stTIM == b"\x10\x00\x00\x00\x09\x00\x00\x00":
                     if messagebox.askokcancel("Multi-TIM Detected", 
-                                              "A multi-tim TRP package was detected. Select an output folder in the next step."):
+                                              "A multi-tim TRP / BSP package was detected. Select an output folder in the next step."):
                         self.parse_trp(data, num_files)
                     return
             elif 0 < num_files < 2048 and len(data) > (num_files * 4) + 4:
@@ -770,7 +770,7 @@ class PDTimTool:
                     with open(os.path.join(dest, os.path.splitext(f_name)[0] + ".tim"), "wb") as f:
                         f.write(tim_data)
                     
-                    details.append(f"{f_name}: {count} colors -> {depth_str}")
+                    details.append(f"{depth_str} with {count} colors: {f_name}")
                     success_count += 1
                 except Exception as e:
                     failed.append(f"{f_name} (Error: {str(e)})")
@@ -1352,10 +1352,10 @@ class PDTimTool:
         detected_count = len(found_offsets)
 
         if detected_count == 0:
-            messagebox.showwarning("Scan Result", "No TIM signatures detected in the TRP data.")
+            messagebox.showwarning("Scan Result", "No TIM signatures detected in the TRP / BSP data.")
             return
             
-        dest = filedialog.askdirectory(title="Select Extraction Folder for TRP contents")
+        dest = filedialog.askdirectory(title="Select Extraction Folder")
         if not dest: return
 
         for i, (off, magic) in enumerate(found_offsets):
@@ -1412,7 +1412,7 @@ class PDTimTool:
         
     def build_trp_container(self):
         """Packs .tim files into the .trp container format, guards against non-standard formats becuase they seem to only contain standard Tim files"""
-        src = filedialog.askdirectory(title="Select Folder to Pack into TRP")
+        src = filedialog.askdirectory(title="Select Folder to Pack into TRP / BSP")
         if not src: 
             return 
             
@@ -1468,8 +1468,8 @@ class PDTimTool:
 
         save = filedialog.asksaveasfilename(
             defaultextension=".trp", 
-            title="Save TRP Container",
-            filetypes=[("TRP Container", "*.trp")]
+            title="Save TRP / BSP Container",
+            filetypes=[("TRP / BSP Container", "*.trp", "*.bsp")]
         )
         
         if save: 
