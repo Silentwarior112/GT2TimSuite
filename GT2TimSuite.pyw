@@ -1405,7 +1405,7 @@ class PDTimTool:
         for i, f in enumerate(tims):
             with open(os.path.join(src, f), "rb") as rb: b = rb.read()
             struct.pack_into("<I", out, 4+(i*4), curr); out.extend(b); curr += len(b)
-        save = filedialog.asksaveasfilename(defaultextension=".tim")
+        save = filedialog.asksaveasfilename()
         if save: 
             with open(save, "wb") as f: f.write(out)
         messagebox.showinfo("Success", f"Packed {i+1} files.")
