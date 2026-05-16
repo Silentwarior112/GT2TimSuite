@@ -95,6 +95,10 @@ class PDTimTool:
         self.inc_spin.delete(0, "end"); self.inc_spin.insert(0, "1")
         self.inc_spin.pack(anchor="w", pady=2)
         
+        # --- Add these lines to unbind the arrow keys ---
+        self.inc_spin.bind("<Up>", lambda e: "break")
+        self.inc_spin.bind("<Down>", lambda e: "break")
+        
         self.list_container = tk.Frame(self.sidebar, bg="#1e1e1e")
         self.list_container.pack(fill=tk.BOTH, expand=True, pady=5)
         self.clut_canvas = tk.Canvas(self.list_container, bg="#1e1e1e", highlightthickness=0)
@@ -477,11 +481,21 @@ class PDTimTool:
 
     def on_press(self, event):
         if not self.raw_data: return
+        
+        # Force focus to the canvas so key events register cleanly
+        self.canvas.focus_set()
+        
         self.px_start_x, self.px_start_y = self.get_snapped_pixel(event.x, event.y)
         self.drag_shdw_id = self.canvas.create_text(0, 0, text="", fill="black", font=("Arial", 12, "bold"))
         self.drag_label_id = self.canvas.create_text(0, 0, text="", fill="white", font=("Arial", 12, "bold"))
         
         self.rect = self.canvas.create_rectangle(0, 0, 0, 0, outline="cyan", dash=(4, 4))
+        
+        self.active_box_idx = None
+        for i, b in enumerate(reversed(self.boxes)):
+            if b['x'] <= self.px_start_x <= b['x']+b['w'] and b['y'] <= self.px_start_y <= b['y']+b['h']:
+                self.active_box_idx = len(self.boxes) - 1 - i
+                break
         
         if self.active_box_idx is not None:
             self.orig_box = self.boxes[self.active_box_idx].copy()
