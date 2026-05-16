@@ -759,6 +759,9 @@ class PDTimTool:
                         for x in range(img.width):
                             p = img.getpixel((x, y))
                             if p not in unique_colors: unique_colors.append(p)
+                            
+                    # Sort the colors in the palette. Doesn't matter what order exactly but just needs AN order. Needed for the tachometers in game_status_files
+                    unique_colors.sort(key=lambda p: (p[3], 0.299*p[0] + 0.587*p[1] + 0.114*p[2]))
                     
                     count = len(unique_colors)
                     # Helper
@@ -822,9 +825,14 @@ class PDTimTool:
             
             clut = bytearray()
             for r, g, b, a in p_colors:
-                rf, gf, bf = (r*a)//255, (g*a)//255, (b*a)//255
-                r5, g5, b5 = rf>>3, gf>>3, bf>>3
-                stp = 1 if (r5==0 and g5==0 and b5==0 and a>0) or (0<a<255) else 0
+                if (a <= 4):
+                    r5, g5, b5, stp = 0, 0, 0, 0 # clean pixels to not enough opacity to survive crunch, or blank pixels
+                elif (a <= 7) and (a >= 5):
+                    a = 8 # round up to 8
+                else:
+                    stp = 1 if (a < 255) else 0 # 1-254 is stp, 255 is opaque
+                    rf, gf, bf = (r*a)//255, (g*a)//255, (b*a)//255 # black-key transparency
+                    r5, g5, b5 = rf>>3, gf>>3, bf>>3 # crunch to 5 bits
                 clut.extend(struct.pack("<H", (stp<<15)|(b5<<10)|(g5<<5)|r5))
             
             out.extend(struct.pack("<IHHHH", len(clut)+12, 0, 0, len(p_colors), 1) + clut)
@@ -846,9 +854,14 @@ class PDTimTool:
             for y in range(img.height):
                 for x in range(img.width):
                     r,g,b,a = img.getpixel((x,y))
-                    rf,gf,bf = (r*a)//255, (g*a)//255, (b*a)//255
-                    r5,g5,b5 = rf>>3,gf>>3,bf>>3
-                    stp = 1 if (r5==0 and g5==0 and b5==0 and a>0) or (0<a<255) else 0
+                    if (a <= 4):
+                        r5, g5, b5, stp = 0, 0, 0, 0 # clean pixels to not enough opacity to survive crunch
+                    elif (a <= 7) and (a >= 5):
+                        a = 8 # round up to 8
+                    else:
+                        stp = 1 if (a < 255) else 0 # 1-254 is stp, 255 is opaque
+                        rf, gf, bf = (r*a)//255, (g*a)//255, (b*a)//255 # black-key transparency
+                        r5, g5, b5 = rf>>3, gf>>3, bf>>3 # crunch to 5 bits
                     pix.extend(struct.pack("<H", (stp<<15)|(b5<<10)|(g5<<5)|r5))
             out.extend(struct.pack("<IHHHH", len(pix)+12, 0, 0, img.width, img.height) + pix)
         return out
@@ -864,6 +877,9 @@ class PDTimTool:
             for x in range(img.width):
                 p = img.getpixel((x, y))
                 if p not in unique_colors: unique_colors.append(p)
+                
+        # Sort the colors in the palette. Doesn't matter what order exactly but just needs AN order. Needed for the tachometers in game_status_files
+        unique_colors.sort(key=lambda p: (p[3], 0.299*p[0] + 0.587*p[1] + 0.114*p[2]))
         
         color_count = len(unique_colors)
         
@@ -1110,6 +1126,9 @@ class PDTimTool:
                 for x in range(img.width):
                     p = img.getpixel((x, y))
                     if p not in colors: colors.append(p)
+                    
+            # Sort the colors in the palette. Doesn't matter what order exactly but just needs AN order. Needed for the tachometers in game_status_files
+            colors.sort(key=lambda p: (p[3], 0.299*p[0] + 0.587*p[1] + 0.114*p[2]))
             
             if len(colors) > 16:
                 messagebox.showerror("Color Limit", f"'{tex['name']}' has {len(colors)} colors.")
@@ -1121,38 +1140,50 @@ class PDTimTool:
             
             for i, (r, g, b, a) in enumerate(colors):
                 if i >= 16: break
-                rf, gf, bf = (r*a)//255, (g*a)//255, (b*a)//255
-                r5, g5, b5 = rf>>3, gf>>3, bf>>3
-                stp = 1 if (r5==0 and g5==0 and b5==0 and a>0) or (0<a<255) else 0
+                if (a <= 4):
+                    r5, g5, b5, stp = 0, 0, 0, 0 # clean pixels to not enough opacity to survive crunch
+                elif (a <= 7) and (a >= 5):
+                    a = 8 # round up to 8
+                else:
+                    stp = 1 if (a < 255) else 0 # 1-254 is stp, 255 is opaque
+                    
+                rf, gf, bf = (r*a)//255, (g*a)//255, (b*a)//255 # black-key transparency
+                r5, g5, b5 = rf>>3, gf>>3, bf>>3 # crunch to 5 bits
                 clut_block[offset + (i*2) : offset + (i*2) + 2] = struct.pack("<H", (stp<<15)|(b5<<10)|(g5<<5)|r5)
 
-        # 4. Build Pixel Data with Padding Logic
-        # 4. Build Pixel Data with Padding and Boundary Safety
+        #4. Build Pixel Data
         pix_chunk = bytearray((cw // 2) * ch)
+        touched_mask = [False] * (cw * ch)
         for y in range(ch):
             for x in range(0, cw, 2):
-                # Default to 0x0F (all bits on) for pixels outside boxes
+                # Initialize pixels to all bits on. Replicates original binary data
                 i1 = i2 = 0x0F
                 
                 # Check for first pixel in pair (x)
-                for pt in reversed(prepared):
+                for pt in prepared:
                     m = pt['meta']
                     if m['x'] <= x < m['x']+m['w'] and m['y'] <= y < m['y']+m['h']:
-                        local_x, local_y = x - m['x'], y - m['y']
-                        # Safety check against actual source image dimensions
-                        if local_x < pt['img'].width and local_y < pt['img'].height:
-                            i1 = pt['cmap'].get(pt['img'].getpixel((local_x, local_y)), 0)
-                            break
+                        # Check if we wrote the index already. Overlapping CLUTs are rare, but basically the 1st layer has to define the indices for all layers including itself. The other CLUT layers merely provide a different palette.
+                        # Overlapping CLUTs require that the pixel indices from the 1st layer also work for them too. Seen in game_status_files's BA bars.
+                        if not touched_mask[y * cw + x]:
+                            local_x, local_y = x - m['x'], y - m['y']
+                            # Safety check against actual source image dimensions
+                            if local_x < pt['img'].width and local_y < pt['img'].height:
+                                i1 = pt['cmap'].get(pt['img'].getpixel((local_x, local_y)), 0)
+                                touched_mask[y * cw + x] = True
                 
                 # Check for second pixel in pair (x+1)
-                for pt in reversed(prepared):
+                for pt in prepared:
                     m = pt['meta']
                     if m['x'] <= (x + 1) < m['x']+m['w'] and m['y'] <= y < m['y']+m['h']:
-                        local_x, local_y = (x + 1) - m['x'], y - m['y']
-                        # Safety check against actual source image dimensions
-                        if local_x < pt['img'].width and local_y < pt['img'].height:
-                            i2 = pt['cmap'].get(pt['img'].getpixel((local_x, local_y)), 0)
-                            break
+                        # Check if we wrote the index already. Overlapping CLUTs are rare, but basically the 1st layer has to define the indices for all layers including itself. The other CLUT layers merely provide a different palette.
+                        # Overlapping CLUTs require that the pixel indices from the 1st layer also work for them too. Seen in game_status_files's BA bars.
+                        if not touched_mask[y * cw + (x + 1)]:
+                            local_x, local_y = (x + 1) - m['x'], y - m['y']
+                            # Safety check against actual source image dimensions
+                            if local_x < pt['img'].width and local_y < pt['img'].height:
+                                i2 = pt['cmap'].get(pt['img'].getpixel((local_x, local_y)), 0)
+                                touched_mask[y * cw + (x + 1)] = True
                         
                 pix_chunk[(y * (cw // 2)) + (x // 2)] = ((i2 & 0x0F) << 4) | (i1 & 0x0F)
         
@@ -1238,6 +1269,9 @@ class PDTimTool:
                 for x in range(img.width):
                     p = img.getpixel((x, y))
                     if p not in colors: colors.append(p)
+                    
+            # Sort the colors in the palette. Doesn't matter what order exactly but just needs AN order. Needed for the tachometers in game_status_files
+            colors.sort(key=lambda p: (p[3], 0.299*p[0] + 0.587*p[1] + 0.114*p[2]))
             
             if len(colors) > clut_limit:
                 messagebox.showerror("Limit Error", f"'{tex['name']}' exceeds {clut_limit} colors.")
@@ -1248,50 +1282,72 @@ class PDTimTool:
             c_idx = tex.get("clut_global_idx", 0)
             offset = c_idx * (clut_limit * 2)
             for i, (r, g, b, a) in enumerate(colors):
-                rf, gf, bf = (r * a) // 255, (g * a) // 255, (b * a) // 255
-                r5, g5, b5 = rf >> 3, gf >> 3, bf >> 3
-                stp = 1 if (r5 == 0 and g5 == 0 and b5 == 0 and a > 0) or (0 < a < 255) else 0
+                if i >= 16: break
+                if (a <= 4):
+                    r5, g5, b5, stp = 0, 0, 0, 0 # clean pixels that don't have enough opacity to survive crunch
+                elif (a <= 7) and (a >= 5):
+                    a = 8 # round up to 8
+                else:
+                    stp = 1 if (a < 255) else 0 # 1-254 is stp, 255 is opaque
+                    rf, gf, bf = (r*a)//255, (g*a)//255, (b*a)//255 # black-key transparency
+                    r5, g5, b5 = rf>>3, gf>>3, bf>>3 # crunch to 5 bits
                 struct.pack_into("<H", clut_block, offset + (i*2), (stp << 15) | (b5 << 10) | (g5 << 5) | r5)
 
         # 4. Build Pixel Data
         px_bytes = bytearray()
+        touched_mask = [False] * (cw * ch) # Track written pixels across both 8bpp and 4bpp modes
+
         if is_8bpp:
             for y in range(ch):
                 for x in range(cw):
                     idx = pad_val
-                    for pt in reversed(prepared):
+                    for pt in prepared:
                         m = pt['meta']
+                        # Check if this pixel falls inside this texture's bounding box region
                         if m['x'] <= x < m['x']+m['w'] and m['y'] <= y < m['y']+m['h']:
-                            local_x, local_y = x - m['x'], y - m['y']
-                            # Add this safety check here too
-                            if local_x < pt['img'].width and local_y < pt['img'].height:
-                                idx = pt['cmap'].get(pt['img'].getpixel((local_x, local_y)), 0)
-                                break
+                            if not touched_mask[y * cw + x]:
+                                # Base layer claims ownership of this coordinate
+                                touched_mask[y * cw + x] = True
+                                
+                                local_x, local_y = x - m['x'], y - m['y']
+                                if local_x < pt['img'].width and local_y < pt['img'].height:
+                                    idx = pt['cmap'].get(pt['img'].getpixel((local_x, local_y)), 0)
+                                else:
+                                    idx = 0 # Fallback safe index inside the box if image dimensions fall short
+
                     px_bytes.append(idx & 0xFF)
             h_w = cw // 2 
         else:
             for y in range(ch):
                 for x in range(0, cw, 2):
                     i1 = i2 = pad_val
-                    for pt in reversed(prepared):
-                        m = pt['meta']
-                        # Check if canvas coordinate is inside the box
-                        if m['x'] <= x < m['x']+m['w'] and m['y'] <= y < m['y']+m['h']:
-                            local_x, local_y = x - m['x'], y - m['y']
-                            # SAFETY: Ensure local coordinates are within the actual PNG bounds
-                            if local_x < pt['img'].width and local_y < pt['img'].height:
-                                i1 = pt['cmap'].get(pt['img'].getpixel((local_x, local_y)), 0)
-                                break
                     
+                    # Check for first pixel in pair (x)
+                    for pt in prepared:
+                        m = pt['meta']
+                        if m['x'] <= x < m['x']+m['w'] and m['y'] <= y < m['y']+m['h']:
+                            if not touched_mask[y * cw + x]:
+                                touched_mask[y * cw + x] = True
+                                
+                                local_x, local_y = x - m['x'], y - m['y']
+                                if local_x < pt['img'].width and local_y < pt['img'].height:
+                                    i1 = pt['cmap'].get(pt['img'].getpixel((local_x, local_y)), 0)
+                                else:
+                                    i1 = 0
+
                     # Check for second pixel in pair (x+1)
-                    for pt in reversed(prepared):
+                    for pt in prepared:
                         m = pt['meta']
                         if m['x'] <= x+1 < m['x']+m['w'] and m['y'] <= y < m['y']+m['h']:
-                            local_x, local_y = (x + 1) - m['x'], y - m['y']
-                            # SAFETY: Check bounds for the second pixel in the pair
-                            if local_x < pt['img'].width and local_y < pt['img'].height:
-                                i2 = pt['cmap'].get(pt['img'].getpixel((local_x, local_y)), 0)
-                                break
+                            if not touched_mask[y * cw + (x + 1)]:
+                                touched_mask[y * cw + (x + 1)] = True
+                                
+                                local_x, local_y = (x + 1) - m['x'], y - m['y']
+                                if local_x < pt['img'].width and local_y < pt['img'].height:
+                                    i2 = pt['cmap'].get(pt['img'].getpixel((local_x, local_y)), 0)
+                                else:
+                                    i2 = 0
+                                    
                     px_bytes.append(((i2 & 0x0F) << 4) | (i1 & 0x0F))
             h_w = cw // 4
 
