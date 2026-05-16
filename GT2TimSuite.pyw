@@ -136,11 +136,6 @@ class PDTimTool:
     def _unbind_sidebar_mousewheel(self, event):
         """Deactivates mousewheel listener when cursor leaves sidebar"""
         self.root.unbind_all("<MouseWheel>")
-
-    def _on_mousewheel_sidebar(self, event):
-        """Scrolls the palette sidebar"""
-        # Windows uses delta, usually 120 units per notch
-        self.clut_canvas.yview_scroll(int(-1 * (event.delta / 120)), "units")
         
     def create_progress_dialog(self, title, max_val):
         """Creates a centered progress popup"""
